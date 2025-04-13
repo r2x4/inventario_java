@@ -87,14 +87,17 @@ public class Producto {
                         double valorCompra = Double.parseDouble(data[3]);
                         int stock = Integer.parseInt(data[4]);
                         LocalDate fechaIngreso = LocalDate.parse(data[5], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
                         Producto producto = new Producto(nombre, marca, valorCompra, stock, fechaIngreso);
-                        producto.id = id;
+                         if (id >= idCounter){
+                            idCounter = id + 1;
+                        }
+                       
                         productos.add(producto);
                     } catch (NumberFormatException | java.time.format.DateTimeParseException e) {
                         System.err.println("Error al parsear una línea en " + filename + ": " + line);
                     }
                 } else {
+
                     System.err.println("Formato incorrecto en una línea de " + filename + ": " + line);
                 }
             }

@@ -109,16 +109,16 @@ public class Main {
         }
 
         guardarEnCSV("vendedores.csv",
-            "id,nombre,idIdentificacion,ciudad,pais\n",
-            vendedores, v -> String.format("%d,%s,%s,%s,%s",
+            "id,nombre,idIdentificacion,ciudad,pais,fechaIngreso\n",
+            vendedores, v -> String.format("%d,%s,%s,%s,%s,%s",
                 v.getId(), v.getNombre(), v.getIdIdentificacion(),
-                v.getCiudad(), v.getPais()));
+                v.getCiudad(), v.getPais(), v.getFechaIngreso()));
 
         guardarEnCSV("productos.csv",
-            "id,nombre,marca,valorCompra,stock\n",
-            productos, p -> String.format("%d,%s,%s,%.2f,%d",
+            "id,nombre,marca,valorCompra,stock,fechaIngreso\n",
+            productos, p -> String.format("%d,%s,%s,%.2f,%d,%s",
                 p.getId(), p.getNombre(), p.getMarca(),
-                p.getValorCompra(), p.getStock()));
+                p.getValorCompra(), p.getStock(), p.getFechaIngreso()));
 
         guardarEnCSV("ventas.csv",
             "id,id_vendedor,id_producto,cantidad,precio_venta,fecha\n",
@@ -189,7 +189,7 @@ public class Main {
             while ((linea = reader.readLine()) != null) {
                 String[] campos = linea.split(",");
                 if (campos.length == 5) {
-                    String nombre = campos[1];
+                    String nombre = campos[1];                    
                     String idIdentificacion = campos[2];
                     String ciudad = campos[3];
                     String pais = campos[4];
@@ -211,7 +211,7 @@ public class Main {
                 String[] campos = linea.split(",");
                 if (campos.length == 5) {
                     String nombre = campos[1];
-                    String marca = campos[2];
+                    String marca = campos[2];                    
                     double valorCompra = Double.parseDouble(campos[3]);
                     int stock = Integer.parseInt(campos[4]);
                     Producto producto = new Producto(nombre, marca, valorCompra, stock, LocalDate.now());

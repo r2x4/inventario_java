@@ -69,17 +69,12 @@ public class Vendedor {
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
                 if (data.length == 6) {
-                    int id = Integer.parseInt(data[0]);
                     String nombre = data[1];
                     String idIdentificacion = data[2];
                     String ciudad = data[3];
                     String pais = data[4];
                     LocalDate fechaIngreso = LocalDate.parse(data[5], formatter);
                     Vendedor vendedor = new Vendedor(nombre, idIdentificacion, ciudad, pais, fechaIngreso);
-                    vendedor.id = id;
-                    if (id >= idCounter){
-                        idCounter = id + 1;
-                    }
                     vendedores.add(vendedor);
                 }
             }

@@ -1,5 +1,6 @@
 package com.mycompany;
 
+import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -59,25 +60,43 @@ public class Venta {
     }
     
     public static void cargarVentasDesdeCSV(List<Venta> ventas) {
-        String csvFile = "Datos/ventas.csv";
-        String line = "";
-        String cvsSplitBy = ",";
+        String filename = "Datos/ventas.csv";
+        File file = new File(filename);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-            br.readLine(); 
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(cvsSplitBy);
-                int idVendedor = Integer.parseInt(data[1]);
-                int idProducto = Integer.parseInt(data[2]);
-                int cantidad = Integer.parseInt(data[3]);
-                double precioVenta = Double.parseDouble(data[4]);
-                LocalDate fecha = LocalDate.parse(data[5], formatter);
-                Venta venta = new Venta(idVendedor, idProducto, cantidad, precioVenta, fecha);
-                ventas.add(venta);
+        if (!file.exists()) {
+            System.out.println("El archivo " + filename + " no existe. No se cargarán ventas.");
+            return;
+        }
+    
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line = reader.readLine(); // Leer y descartar la cabecera
+            if(line == null || !line.equals("id,id_vendedor,id_producto,cantidad,precio_venta,fecha")) {
+                System.out.println("El archivo " + filename + " no tiene la cabecera correcta. No se cargarán ventas.");
+                return;
             }
-        } catch (IOException | NumberFormatException e) {
-            System.out.println("Error al cargar ventas desde CSV: " + e.getMessage());
+    
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data.length == 6) {
+                    try{
+                        int id = Integer.parseInt(data[0]);
+                        int idVendedor = Integer.parseInt(data[1]);
+                        int idProducto = Integer.parseInt(data[2]);
+                        int cantidad = Integer.parseInt(data[3]);
+                        double precioVenta = Double.parseDouble(data[4]);
+                        LocalDate fecha = LocalDate.parse(data[5], formatter);
+                        Venta venta = new Venta(idVendedor, idProducto, cantidad, precioVenta, fecha);
+                        if (id >= idCounter) {
+                            idCounter = id + 1;
+                        }
+                        ventas.add(venta);
+                    } catch (NumberFormatException | java.time.format.DateTimeParseException e) {
+                        System.err.println("Error al parsear una línea en " + filename + ": " + line);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo " + filename + ": " + e.getMessage());
         }
     }
 }
