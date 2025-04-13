@@ -189,13 +189,11 @@ public class Main {
             while ((linea = reader.readLine()) != null) {
                 String[] campos = linea.split(",");
                 if (campos.length == 5) {
-                    int id = Integer.parseInt(campos[0]);
                     String nombre = campos[1];
                     String idIdentificacion = campos[2];
                     String ciudad = campos[3];
                     String pais = campos[4];
                     Vendedor vendedor = new Vendedor(nombre, idIdentificacion, ciudad, pais, LocalDate.now());
-                    vendedor.setId(id);
                     vendedores.add(vendedor);
                 }
             }
@@ -212,13 +210,11 @@ public class Main {
             while ((linea = reader.readLine()) != null) {
                 String[] campos = linea.split(",");
                 if (campos.length == 5) {
-                    int id = Integer.parseInt(campos[0]);
                     String nombre = campos[1];
                     String marca = campos[2];
                     double valorCompra = Double.parseDouble(campos[3]);
                     int stock = Integer.parseInt(campos[4]);
                     Producto producto = new Producto(nombre, marca, valorCompra, stock, LocalDate.now());
-                    producto.setId(id);
                     productos.add(producto);
                 }
             }
@@ -235,14 +231,12 @@ public class Main {
             while ((linea = reader.readLine()) != null) {
                 String[] campos = linea.split(",");
                 if (campos.length == 6) {
-                    int id = Integer.parseInt(campos[0]);
                     int idVendedor = Integer.parseInt(campos[1]);
                     int idProducto = Integer.parseInt(campos[2]);
                     int cantidad = Integer.parseInt(campos[3]);
                     double precioVenta = Double.parseDouble(campos[4]);
                     LocalDate fecha = LocalDate.parse(campos[5]);
                     Venta venta = new Venta(idVendedor, idProducto, cantidad, precioVenta, fecha);
-                    venta.setId(id);
                     ventas.add(venta);
                 }
             }
