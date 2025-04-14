@@ -1,0 +1,4 @@
+id,nombre,marca,valorCompra,stock,fechaIngreso
+1,Producto A,Marca 1,10,50,50,2023-04-05
+2,Producto B,Marca 2,25,75,30,2023-05-12
+3,Producto C,Marca 1,5,99,100,2023-06-20

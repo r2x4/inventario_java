@@ -1,0 +1,4 @@
+id,nombre,idIdentificacion,ciudad,pais,fechaIngreso
+2,Vendedor 1,ID123,Ciudad A,Pais X,2023-01-15
+3,Vendedor 2,ID456,Ciudad B,Pais Y,2023-02-20
+4,Vendedor 3,ID789,Ciudad C,Pais Z,2023-03-10

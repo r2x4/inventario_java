@@ -1,0 +1,4 @@
+id,id_vendedor,id_producto,cantidad,precio_venta,fecha
+1,1,1,5,15,00,2023-07-01
+2,2,2,2,30,50,2023-07-10
+3,1,3,10,7,50,2023-07-20
