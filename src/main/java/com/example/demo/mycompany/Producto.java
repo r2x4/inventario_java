@@ -1,4 +1,4 @@
-package com.mycompany;
+package com.example.demo.mycompany;
 
 import java.io.BufferedReader;
 import java.io.File;
